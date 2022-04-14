@@ -19,12 +19,15 @@ class TfcSpider(scrapy.Spider):
         tag = response.xpath("//div[@class='field-items']/div[@class='field-item odd']/a/text()").get()
         category = response.xpath("//div[@class='field field-name-field-taxo-report-attr field-type-taxonomy-term-reference field-label-hidden']//a/text()").get()
         date = response.xpath("//div[@class='entity-list-date']/text()").get()
+        check_result = response.xpath("//div[@class='node-preface']/p/text()").getall()
+        check_result = "".join(check_result)
 
         FactcheckItem = {
             "title" : title,
             "tag" : tag,
             "category" : category,
-            "date" : date
+            "date" : date,
+            "check_result" : check_result
         }
 
         return FactcheckItem
